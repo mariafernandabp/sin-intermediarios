@@ -1,0 +1,16 @@
+{
+  "_advertencia": "BORRADOR SIN VALIDAR. Esta estructura NO viene de un manual oficial de Bancolombia -- nadie en el equipo tenia a la mano la especificacion exacta del archivo plano. Antes de subir un archivo real a la Sucursal Virtual Empresas, hay que: (1) entrar a Sucursal Virtual Empresas > Guias y Manuales > descargar la 'Plantilla Inscripcion de Cuentas' oficial, (2) comparar cada campo, orden, separador y codigos (banco, tipo de cuenta, tipo de documento) contra ese archivo, y (3) ajustar este JSON. No se necesita tocar codigo Python para corregirlo, solo este archivo.",
+  "delimiter": ";",
+  "line_ending": "\r\n",
+  "encoding": "utf-8",
+  "fields": [
+    { "key": "tipo_documento",  "label": "Tipo de identificacion" },
+    { "key": "numero_documento","label": "Numero de identificacion" },
+    { "key": "nombre_completo", "label": "Nombres y apellidos" },
+    { "key": "codigo_banco",    "label": "Codigo del banco (segun tabla oficial de Bancolombia)" },
+    { "key": "tipo_cuenta",     "label": "Tipo de cuenta (AHORROS / CORRIENTE / DEPOSITO_ELECTRONICO -- reemplazar por el codigo real que pida Bancolombia)" },
+    { "key": "numero_cuenta",   "label": "Numero de cuenta" },
+    { "key": "email",           "label": "Correo electronico" },
+    { "key": "telefono",        "label": "Celular" }
+  ]
+}

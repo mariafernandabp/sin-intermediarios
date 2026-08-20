@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Panel</h1>
+
+<div class="grid-2">
+  <section class="card">
+    <div class="card-header">
+      <h2>Creadores</h2>
+      <a class="btn btn-small" href="{{ url_for('creador_nuevo') }}">+ Nuevo</a>
+    </div>
+    {% if creadores %}
+    <table>
+      <thead><tr><th>Nombre</th><th>Documento</th><th>Banco</th><th>Inscrito</th><th></th></tr></thead>
+      <tbody>
+        {% for c in creadores %}
+        <tr>
+          <td>{{ c.nombre_completo }}</td>
+          <td>{{ c.tipo_documento }} {{ c.numero_documento }}</td>
+          <td>{{ c.banco }}</td>
+          <td>{% if c.inscrito_en_banco %}<span class="tag tag-ok">Sí</span>{% else %}<span class="tag tag-pending">No</span>{% endif %}</td>
+          <td class="actions">
+            <a href="{{ url_for('liquidar', creador_id=c.id) }}" class="btn btn-primary btn-small">Liquidar</a>
+            <a href="{{ url_for('creador_editar', creador_id=c.id) }}" class="btn btn-ghost btn-small">Editar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Todavía no hay creadores registrados. Empieza transcribiendo los datos bancarios del contrato firmado.</p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <h2>Inscripción pendiente en Bancolombia</h2>
+    </div>
+    {% if pendientes_inscripcion %}
+      <p class="muted">{{ pendientes_inscripcion|length }} creador(es) sin inscribir.</p>
+      <a class="btn btn-primary" href="{{ url_for('inscripcion') }}">Generar archivo plano</a>
+    {% else %}
+      <p class="muted">Todos los creadores registrados ya están marcados como inscritos.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="card" style="margin-top:24px;">
+  <div class="card-header"><h2>Cuentas de cobro generadas</h2></div>
+  {% if cuentas %}
+  <table>
+    <thead><tr><th>No.</th><th>Creador</th><th>Concepto</th><th>Valor</th><th>Fecha</th><th></th></tr></thead>
+    <tbody>
+      {% for cc in cuentas %}
+      <tr>
+        <td>{{ "%05d"|format(cc.consecutivo) }}</td>
+        <td>{{ cc.nombre_completo }}</td>
+        <td>{{ cc.concepto }}</td>
+        <td>${{ "{:,.0f}".format(cc.monto).replace(",", ".") }}</td>
+        <td>{{ cc.fecha }}</td>
+        <td><a class="btn btn-ghost btn-small" href="{{ url_for('descargar_cuenta_cobro', filename=cc.pdf_filename) }}" target="_blank">Ver PDF</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Todavía no se ha liquidado ninguna cuenta de cobro.</p>
+  {% endif %}
+</section>
+{% endblock %}

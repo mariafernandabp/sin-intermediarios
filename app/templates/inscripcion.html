@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Inscripción de cuentas — Bancolombia</h1>
+
+<div class="warning-box">
+  <strong>Antes de subir este archivo a la Sucursal Virtual Empresas:</strong> el layout usado
+  aquí es un borrador (definido en <code>app/config/bancolombia_layout.json</code>) porque no
+  tenemos todavía la plantilla oficial de Bancolombia. Descárgala desde Sucursal Virtual Empresas
+  → Guías y Manuales, compárala campo por campo, y ajusta ese archivo de configuración antes de
+  usar esto para un lote real.
+</div>
+
+<form method="post" class="card">
+  <h3>Selecciona los creadores a inscribir</h3>
+  {% if creadores %}
+  <table>
+    <thead><tr><th></th><th>Nombre</th><th>Documento</th><th>Banco</th><th>Cuenta</th></tr></thead>
+    <tbody>
+      {% for c in creadores %}
+      <tr>
+        <td><input type="checkbox" name="creador_id" value="{{ c.id }}"></td>
+        <td>{{ c.nombre_completo }}</td>
+        <td>{{ c.tipo_documento }} {{ c.numero_documento }}</td>
+        <td>{{ c.banco }}</td>
+        <td>{{ c.numero_cuenta }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary">Generar archivo plano (.txt)</button>
+  {% else %}
+  <p class="muted">No hay creadores pendientes de inscripción.</p>
+  {% endif %}
+</form>
+
+<div class="card" style="margin-top:20px;">
+  <h3>Campos incluidos en el archivo</h3>
+  <ol>
+    {% for f in layout.fields %}
+    <li>{{ f.label }}</li>
+    {% endfor %}
+  </ol>
+  <p class="muted">Separador: <code>{{ layout.delimiter }}</code></p>
+</div>
+{% endblock %}

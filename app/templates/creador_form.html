@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ "Editar creador" if creador else "Nuevo creador" }}</h1>
+<p class="muted">Transcribe estos datos directamente del contrato firmado por el creador. Revisa dos veces el número de cuenta antes de guardar.</p>
+
+<form method="post" class="card form">
+  <div class="grid-2">
+    <label>Nombre completo
+      <input type="text" name="nombre_completo" required value="{{ creador.nombre_completo if creador else '' }}">
+    </label>
+    <label>Correo electrónico
+      <input type="email" name="email" value="{{ creador.email if creador else '' }}">
+    </label>
+  </div>
+
+  <div class="grid-3">
+    <label>Tipo de documento
+      <select name="tipo_documento" required>
+        {% for t in tipos_documento %}
+        <option value="{{ t }}" {% if creador and creador.tipo_documento == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Número de documento
+      <input type="text" name="numero_documento" required value="{{ creador.numero_documento if creador else '' }}">
+    </label>
+    <label>Teléfono
+      <input type="text" name="telefono" value="{{ creador.telefono if creador else '' }}">
+    </label>
+  </div>
+
+  <h3>Datos bancarios</h3>
+  <div class="grid-3">
+    <label>Banco
+      <input type="text" name="banco" required value="{{ creador.banco if creador else '' }}">
+    </label>
+    <label>Código del banco <span class="hint">(tabla oficial Bancolombia)</span>
+      <input type="text" name="codigo_banco" value="{{ creador.codigo_banco if creador else '' }}">
+    </label>
+    <label>Tipo de cuenta
+      <select name="tipo_cuenta" required>
+        {% for t in tipos_cuenta %}
+        <option value="{{ t }}" {% if creador and creador.tipo_cuenta == t %}selected{% endif %}>{{ t.replace("_", " ") }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+  <label>Número de cuenta
+    <input type="text" name="numero_cuenta" required value="{{ creador.numero_cuenta if creador else '' }}">
+  </label>
+
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

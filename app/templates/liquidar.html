@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Liquidar a {{ creador.nombre_completo }}</h1>
+<p class="muted">Se generará automáticamente la cuenta de cobro en PDF con los datos bancarios ya registrados de este creador.</p>
+
+<div class="card" style="margin-bottom:20px;">
+  <h3>Datos bancarios que se usarán</h3>
+  <p><strong>{{ creador.banco }}</strong> · {{ creador.tipo_cuenta.replace("_", " ") }} · Cuenta {{ creador.numero_cuenta }}</p>
+  <p class="muted">{{ creador.tipo_documento }} {{ creador.numero_documento }}</p>
+</div>
+
+<form method="post" class="card form">
+  <label>Concepto
+    <textarea name="concepto" rows="3" required placeholder="Producción de contenido UGC para la marca X — campaña Y">{{ request.form.concepto or "" }}</textarea>
+  </label>
+  <label>Valor (COP)
+    <input type="text" name="monto" required placeholder="500000" value="{{ request.form.monto or '' }}">
+  </label>
+  <button type="submit" class="btn btn-primary">Generar cuenta de cobro</button>
+</form>
+{% endblock %}
