@@ -162,7 +162,7 @@
 <body>
 
 <div class="progress" id="progress"></div>
-<div class="slide-counter" id="slideCounter">1 / 11</div>
+<div class="slide-counter" id="slideCounter">1 / 12</div>
 <div class="fullscreen-hint" id="fullscreenHint">Presiona F para pantalla completa</div>
 
 <div class="presentation">
@@ -340,8 +340,25 @@
     </div>
   </div>
 
-  <!-- 11. CIERRE -->
-  <div class="slide slide-dark slide-cierre" id="slide11">
+  <!-- 11. MEJORA 5: HERRAMIENTA INTERNA DE PAGOS -->
+  <div class="slide slide-light" id="slide11">
+    <div class="section-tag">MEJORA 05 · VERSIÓN INTERNA LA REAL</div>
+    <h2>Automatizar la liquidación de pagos a los UGC</h2>
+    <p class="body-text">Para la versión interna de LA REAL, vamos a desarrollar dos botones que agilicen el pago a los creadores:</p>
+    <div class="includes-grid">
+      <div class="include-item">
+        <div class="include-check">&#10003;</div>
+        <div class="include-text"><strong>Botón para liquidar a los UGC:</strong> que saque automáticamente la información bancaria del creador para poder inscribirlo y que genere automáticamente la cuenta de cobro.</div>
+      </div>
+      <div class="include-item">
+        <div class="include-check">&#10003;</div>
+        <div class="include-text"><strong>Botón de inscripción de cuentas:</strong> que genere el archivo plano tal como lo pide Bancolombia para inscribir cuentas.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. CIERRE -->
+  <div class="slide slide-dark slide-cierre" id="slide12">
     <div class="eyebrow-wordmark">LA REAL</div>
     <h1 style="font-size:56px;">Con esto claro, el próximo proyecto <span class="highlight">arranca mejor</span></h1>
     <p class="subtitle" style="font-size:20px;">Equipo LA REAL</p>
@@ -356,7 +373,7 @@
 
 <script>
   let currentSlide = 1;
-  const totalSlides = 11;
+  const totalSlides = 12;
 
   function showSlide(n) {
     document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
